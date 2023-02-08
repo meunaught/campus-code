@@ -33,49 +33,52 @@
 
 void GPIO_WritePin(GPIO_TypeDef *GPIOx,uint16_t GPIO_pin,GPIO_PinState PinState)
 {
-		if (PinState == GPIO_PIN_SET)
+		if (PinState == GPIO_PIN_SET) {
 			GPIOx->BSRR |= (1<<GPIO_pin);
-		else if(PinState == GPIO_PIN_RESET)
-			GPIOx->BSRR |= (1<<(GPIO_pin+(uint16_t)16));
+		}		
+		else if(PinState == GPIO_PIN_RESET) {
+			uint16_t OFFSET = GPIO_pin + (uint16_t) 16;
+			GPIOx->BSRR |= 1 << OFFSET; 
+		}
 }
 
 void GPIO_Init(GPIO_TypeDef* GPIOx,GPIO_InitTypeDef *GPIO_Init)
 {
-// You need to implement this function	
-uint32_t temp;
-	uint32_t position;
-	uint32_t cur_position;
-	uint32_t check_position;
+	uint32_t temp;
+	uint32_t pin;
+	uint32_t cur_pin;
+	uint32_t check_pin;
 	
-	for (position = 0U;position < GPIO_NUMBER;position++){
+	for (pin = 0U; pin < GPIO_NUMBER; ++pin){
 		
-		cur_position = (uint32_t)(1U << position);
-		check_position = (uint32_t)(GPIO_Init->Pin) & cur_position;
-		if(cur_position == check_position){
+		cur_pin = (uint32_t)(1U << pin);
+		check_pin = (uint32_t)(GPIO_Init->Pin) & cur_pin;
+		
+		if(cur_pin == check_pin){
 			
 			/* Set the PIN Mode */
 			temp = GPIOx->MODER;
-			temp &= ~(GPIO_MODER_MODER0 << (position * 2U));
-			temp |= ((GPIO_Init->Mode & GPIO_MODE) << (position * 2U));
+			temp &= ~(GPIO_MODER_MODER0 << (pin * 2U));
+			temp |= ((GPIO_Init->Mode & GPIO_MODE) << (pin * 2U));
 			GPIOx->MODER = temp;
 
 			/* Set the PIN Output Type */
 			temp = GPIOx->OTYPER;
-			temp &= ~(GPIO_OTYPER_OT_0 << position);
-			temp |= (((GPIO_Init->Mode & GPIO_OUTPUT_TYPE) >> 4U) << position);
+			temp &= ~(GPIO_OTYPER_OT_0 << pin);
+			temp |= (((GPIO_Init->Mode & GPIO_OUTPUT_TYPE) >> 4U) << pin);
 			GPIOx->OTYPER = temp;
 			
 			/* Set the PIN Speed */
 			temp = GPIOx->OSPEEDR;
-			temp &= ~(GPIO_OSPEEDER_OSPEEDR0 << (position * 2U));
-			temp |= ((GPIO_Init->Speed) << (position * 2U));
+			temp &= ~(GPIO_OSPEEDER_OSPEEDR0 << (pin * 2U));
+			temp |= ((GPIO_Init->Speed) << (pin * 2U));
 			GPIOx->OSPEEDR = temp;
 			
 			
 			/* Activate the Pull-up or Pull down resistor for the current IO */
 			temp = GPIOx->PUPDR;
-			temp &= ~(GPIO_PUPDR_PUPDR0 << (position * 2U)); 
-			temp |= ((GPIO_Init->Pull) << (position * 2U)); 
+			temp &= ~(GPIO_PUPDR_PUPDR0 << (pin * 2U)); 
+			temp |= ((GPIO_Init->Pull) << (pin * 2U)); 
 			GPIOx->PUPDR = temp; 
 			
 		}
