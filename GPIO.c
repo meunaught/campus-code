@@ -31,6 +31,16 @@
 #include "GPIO.h"
 #include "CLOCK.h"
 
+GPIO_PinState GPIO_ReadPin(GPIO_TypeDef *GPIOx, uint16_t GPIO_pin) {
+	uint32_t temp = GPIOx->IDR;
+	uint32_t chk = 1 << GPIO_pin;
+	
+	if(temp & chk) {
+		return GPIO_PIN_SET;
+	}
+	return GPIO_PIN_RESET;
+}
+
 void GPIO_WritePin(GPIO_TypeDef *GPIOx,uint16_t GPIO_pin,GPIO_PinState PinState)
 {
 		if (PinState == GPIO_PIN_SET) {
@@ -73,7 +83,6 @@ void GPIO_Init(GPIO_TypeDef* GPIOx,GPIO_InitTypeDef *GPIO_Init)
 			temp &= ~(GPIO_OSPEEDER_OSPEEDR0 << (pin * 2U));
 			temp |= ((GPIO_Init->Speed) << (pin * 2U));
 			GPIOx->OSPEEDR = temp;
-			
 			
 			/* Activate the Pull-up or Pull down resistor for the current IO */
 			temp = GPIOx->PUPDR;

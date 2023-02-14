@@ -14,10 +14,11 @@
 
 void go (GPIO_TypeDef *, int rep);
 void resetLED (void);
-void initPins (GPIO_TypeDef *, uint16_t pins);
+void initPins (GPIO_TypeDef *, uint16_t, uint16_t);
 void showTraffic (GPIO_TypeDef *, uint16_t, uint16_t);
+uint16_t genpin(int *, int);
 
-
+ 
 int main(void) {
 	
 	initClock();
@@ -25,13 +26,18 @@ int main(void) {
 	
 	RCC->AHB1ENR |= (1<<RCC_AHB1ENR_GPIOAEN_Pos);
 	RCC->AHB1ENR |= (1<<RCC_AHB1ENR_GPIOBEN_Pos);
+	RCC->AHB1ENR |= (1<<RCC_AHB1ENR_GPIOCEN_Pos);
 	
-	/* Initialize pin 0,1,4,5...9,10 */
-	uint16_t myPins = 0b00000111111110011;
-	initPins(GPIOA, myPins);
-	initPins(GPIOB, myPins);
+	int outPins[] = {0,1,4,5,6,7,8,9,10};
+	int inPins[] = {6, 9, 10, 11};
+	uint16_t out = genpin(outPins, 9);
+	uint16_t in = genpin(inPins, 4);
+	initPins(GPIOA, out, GPIO_MODE_OUTPUT_PP);
+	initPins(GPIOB, out, GPIO_MODE_OUTPUT_PP);
+	initPins(GPIOC, in, GPIO_MODE_INPUT);
 	
 	uint16_t now = 0;
+	
 	
 	while(1) {
 		GPIO_TypeDef *currGPIO;
@@ -48,7 +54,9 @@ int main(void) {
 			GPIO_WritePin(GPIOB, RED, GPIO_PIN_SET);
 			showTraffic(GPIOB, traffic[2], traffic[3]);
 			showTraffic(GPIOA, traffic[0], traffic[1]);
-			if(traffic[0] + traffic[1] < 3) {
+			GPIO_PinState l = GPIO_ReadPin(GPIOC, 6);
+			GPIO_PinState r = GPIO_ReadPin(GPIOC, 9);
+			if(l == GPIO_PIN_RESET && r == GPIO_PIN_RESET) {
 				extraTime = EXTRA;
 			}
 		}
@@ -58,9 +66,11 @@ int main(void) {
 			GPIO_WritePin(GPIOA, RED, GPIO_PIN_SET);
 			showTraffic(GPIOA, traffic[0], traffic[1]);
 			showTraffic(GPIOB, traffic[2], traffic[3]);
-			if(traffic[2] + traffic[1] < 3) {
+			GPIO_PinState l = GPIO_ReadPin(GPIOC, 10);
+			GPIO_PinState r = GPIO_ReadPin(GPIOC, 11);
+			if(l == GPIO_PIN_RESET && r == GPIO_PIN_RESET) {
 				extraTime = EXTRA;
-			} 
+			}
 		}
 		
 		go(currGPIO, R2G + extraTime);
@@ -79,6 +89,14 @@ int main(void) {
 	return 0;
 }
 
+uint16_t genpin(int *pins, int n) {
+	uint16_t pin = 0;
+	for(int i = 0; i < n; ++i) {
+		pin |= 1U << pins[i];
+	}
+	return pin;
+}
+
 void resetLED (void) {
 	for(uint16_t i = 0; i <= 10; ++i) {
 		if(i == 2 || i == 3) continue;
@@ -87,12 +105,12 @@ void resetLED (void) {
 	}
 }
 
-void initPins(GPIO_TypeDef *GPIOx, uint16_t pins) {
+void initPins(GPIO_TypeDef *GPIOx, uint16_t pins, uint16_t mode) {
 		GPIO_InitTypeDef Config;
 	
-		Config.Mode = GPIO_MODE_OUTPUT_PP;
+		Config.Mode = mode;
 		Config.Pull = GPIO_NOPULL;
-		Config.Speed = GPIO_SPEED_FREQ_LOW;
+		Config.Speed = GPIO_SPEED_FREQ_HIGH;
 		Config.Pin= pins;
 	
 		GPIO_Init(GPIOx, &Config);
