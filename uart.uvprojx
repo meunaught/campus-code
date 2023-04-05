@@ -404,6 +404,11 @@
               <FileType>1</FileType>
               <FilePath>.\USART.c</FilePath>
             </File>
+            <File>
+              <FileName>traffic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\traffic.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -429,15 +434,20 @@
               <FileType>5</FileType>
               <FilePath>.\USART.h</FilePath>
             </File>
+            <File>
+              <FileName>traffic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\traffic.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>traffic.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\traffic.c</FilePath>
+              <FilePath>.\main.c</FilePath>
             </File>
           </Files>
         </Group>

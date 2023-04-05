@@ -22,34 +22,36 @@ Dialog DLL:      TCM.DLL V1.56.4.0
  
 <h2>Project:</h2>
 C:\Users\ratingminus\UART_STM32\uart.uvprojx
-Project File Date:  04/04/2023
+Project File Date:  04/05/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
 traffic.c(1): warning: In file included from...
-./CLOCK.h(39): warning: // comments are not allowed in this language [-Wcomment]
-#define PLL_P 0 //0 to the sixteenth position (PLL=2)
-                ^
-traffic.c(4): warning: In file included from...
-./USART.h(44): warning: // comments are not allowed in this language [-Wcomment]
-// USART 2 Configuration
-^
-traffic.c(44): warning: implicitly declaring library function 'sprintf' with type 'int (char *, const char *, ...)' [-Wimplicit-function-declaration]
-                sprintf(cnt, "%d", j += 20);
-                ^
-traffic.c(44): note: include the header <stdio.h> or explicitly provide a declaration for 'sprintf'
-traffic.c(40): warning: mixing declarations and code is a C99 extension [-Wdeclaration-after-statement]
-                uint32_t j = 100;
-                         ^
-traffic.c(112): warning: no newline at end of file [-Wnewline-eof]
+./traffic.h(12): warning: no newline at end of file [-Wnewline-eof]
+void simulateTraffic(int, int);
+                               ^
+traffic.c(7): warning: variable declaration in for loop is a C99-specific feature [-Wc99-extensions]
+        for(int i = 0; i < n; ++i) {
+            ^
+traffic.c(7): warning: GCC does not allow variable declarations in for loop initializers before C99 [-Wgcc-compat]
+traffic.c(32): warning: implicit conversion changes signedness: 'int' to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
+                                ms_delay(rt);
+                                ~~~~~~~~ ^~
+traffic.c(40): warning: implicit conversion changes signedness: 'int' to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
+                                ms_delay(yt);
+                                ~~~~~~~~ ^~
+traffic.c(49): warning: implicit conversion changes signedness: 'int' to 'uint32_t' (aka 'unsigned int') [-Wsign-conversion]
+                                ms_delay(rt);
+                                ~~~~~~~~ ^~
+traffic.c(56): warning: no newline at end of file [-Wnewline-eof]
 }
  ^
-5 warnings generated.
+7 warnings generated.
 compiling traffic.c...
 linking...
-Program Size: Code=8544 RO-data=1028 RW-data=0 ZI-data=1752  
-".\Objects\uart.axf" - 0 Error(s), 5 Warning(s).
+Program Size: Code=9248 RO-data=1028 RW-data=0 ZI-data=1752  
+".\Objects\uart.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -75,12 +77,12 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE:5.6.0
 
    * Component: Keil::Device:Startup:2.6.3
-      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
-      Source file:   MDK/Device/Source/ARM/STM32F446xx_OPT.s
       Include file:  Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+      Source file:   MDK/Device/Source/ARM/STM32F446xx_OPT.s
+      Source file:   MDK/Device/Source/ARM/STM32F4xx_OTP.s
       Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/arm/startup_stm32f446xx.s
-Build Time Elapsed:  00:00:01
+      Source file:   Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
+Build Time Elapsed:  00:00:00
 </pre>
 </body>
 </html>
