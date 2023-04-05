@@ -8,6 +8,7 @@
 
 static char tx_buffer[50],rx_buffer[50];
 static uint32_t tx,rx, i;
+static int x, RT, GT, YT, u;
 
 void UART4_IRQHandler(void);
 void UART5_IRQHandler(void);
@@ -28,6 +29,8 @@ int main(void) {
 	UART2_Config();
 	initUART4();
 	initUART5();
+	initGPIO_OP(GPIOB);
+	initGPIO_OP(GPIOC);
 	
 	  NVIC_SetPriority(USART2_IRQn, 0);
     NVIC_EnableIRQ(USART2_IRQn);
@@ -46,14 +49,26 @@ int main(void) {
 		strcat(cnt, " ");
 		USART2->DR = '!';
 		ms_delay(4000);
-		strcat(cnt, tx_buffer);	
-		strcat(cnt, "\n");
-		USART2_SendString(cnt);
 		
-		initGPIO_OP(GPIOB);
-		initGPIO_OP(GPIOC);
+		for(i = 0; i < strlen(tx_buffer); ++i) {
+				initTransmit(UART4);
+				ms_delay(1);
+				tx++;
+				rx++;
+		}
+		rx_buffer[rx++] = '\0';
+		x =rx_buffer[20] - '0';
+		GT = rx_buffer[28] - '0';
+		YT = rx_buffer[30] - '0';
+		RT = rx_buffer[32] - '0';
+		u = rx_buffer[34] - '0';
+
+	char str[100];
+	sprintf(str, "%d %d\n", GT, YT);
+	USART2_SendString(str);
+
 		while(1) {
-			simulateTraffic(1, 3);
+			simulateTraffic(GT, YT);
 		}
 			
 }

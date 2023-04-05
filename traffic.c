@@ -28,11 +28,14 @@ void simulateTraffic(int rt, int yt) {
 		yt *= 1000;
 				GPIO_WritePin(GPIOB, RED, GPIO_PIN_SET);
 				GPIO_WritePin(GPIOC, GREEN, GPIO_PIN_SET);
-			
+				GPIO_WritePin(GPIOC, WHITE, GPIO_PIN_SET);
+	
+	
 				ms_delay(rt);
 				
 				GPIO_WritePin(GPIOB, RED, GPIO_PIN_RESET);
 				GPIO_WritePin(GPIOC, GREEN, GPIO_PIN_RESET);
+				GPIO_WritePin(GPIOC, WHITE, GPIO_PIN_RESET);
 			
 				GPIO_WritePin(GPIOB, YELLOW, GPIO_PIN_SET);
 				GPIO_WritePin(GPIOC, YELLOW, GPIO_PIN_SET);
@@ -45,11 +48,13 @@ void simulateTraffic(int rt, int yt) {
 				
 				GPIO_WritePin(GPIOB, GREEN, GPIO_PIN_SET);
 				GPIO_WritePin(GPIOC, RED, GPIO_PIN_SET);
+				GPIO_WritePin(GPIOB, WHITE, GPIO_PIN_SET);
 			
 				ms_delay(rt);
 				
 				GPIO_WritePin(GPIOB, GREEN, GPIO_PIN_RESET);
 				GPIO_WritePin(GPIOC, RED, GPIO_PIN_RESET);
+				GPIO_WritePin(GPIOB, WHITE, GPIO_PIN_RESET);
 				
 				ms_delay(1000);
 			
