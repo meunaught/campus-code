@@ -1,4 +1,4 @@
-### STM32F4 Keil Dev – Learning Projects (GPIO, UART)
+### Embedded Systems– Learning Projects (GPIO, UART, I2C, SPI)
 
 This repository contains small STM32F446RE learning projects built with Keil uVision (MDK-ARM). They focus on bare‑metal register‑level programming to learn core MCU peripherals, timing, and interrupt handling.
 
@@ -6,8 +6,6 @@ This repository contains small STM32F446RE learning projects built with Keil uVi
 - **Clock**: System clock set to 180 MHz via HSE + PLL
 - **IDE/Toolchain**: Keil uVision (.uvprojx, .uvoptx)
 - **Peripherals used**: GPIO, SysTick, USART (UART2, UART4, UART5)
-
-> Note: I2C/SPI are planned topics but not implemented in this codebase yet.
 
 ### Projects
 
