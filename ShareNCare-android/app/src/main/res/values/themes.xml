@@ -1,0 +1,34 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.ShareNCare" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPurpleDark</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <!-- Customize your theme here. -->
+
+    </style>
+
+    <style name="Theme.ShareNCare.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.ShareNCare.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MyToolbarStyle" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:background">  @color/colorPurpleDark  </item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:itemBackground">@color/colorPurpleDark</item>
+        <item name="actionOverflowMenuStyle"> @color/white </item>
+        <item name="tint"> @color/white </item>
+    </style>
+
+
+</resources>
