@@ -1,5 +1,5 @@
 # campus-code
-Archive of university coursework and hackathon projects. Projects span C/C++, Java, Python, TypeScript, Kotlin, and embedded C.
+Archive of projects completed for university coursework and hackathon. Projects span C/C++, Java, Python, TypeScript, Kotlin, and embedded C.
 
 ## Projects
 - **[audio-visualizer-sdl](audio-visualizer-sdl/)**: Learned C/C++ via memory management, SDL2 rendering, and FFT (FFTW) for real-time audio processing.
