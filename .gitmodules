@@ -1,0 +1,3 @@
+[submodule "stm32f4-baremetal-os"]
+	path = stm32f4-baremetal-os
+	url = https://github.com/meunaught/stm32f4-baremetal-os
